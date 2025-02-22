@@ -1,34 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
+import browseGIF from "../assets/browse.gif" //
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
 import { Insights } from "../weather";
 import { ping } from "ldrs";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import WeatherDashboard from "../pages/WeatherDashboard";
+
 
 const HeroSection = () => {
   ping.register();
-  const [weather, setWeather] = useState(null);
-  const [InputCity, setInputCity] = useState(""); // ✅ Use an empty string
-  const [City, setCity] = useState(""); // ✅ Use an empty string
-
+  const navigate = useNavigate();
+  const [weather, setWeather] = useState();
+  const [city, setCity] = useState(""); // ✅ Use controlled input
+  const [searchCity, setSearchCity] = useState(""); // ✅ Separate state for search
+      const [showWeather, setShowWeather] = useState(false);
+   
   useEffect(() => {
     const fetchData = async () => {
-      const data = await Insights("lahore");
-      setWeather(data);
+      if (searchCity) {
+        const data = await Insights(searchCity);
+        setWeather(data);
+      }
     };
-    
     fetchData();
-  }, []);
-
- 
-  const handleChange = (event) => {
-    setInputCity(event.target.value); // ✅ Pass event
-  };
-  
+  }, [searchCity]); // ✅ Run effect when searchCity changes
 
   const handleSubmit = () => {
-    setCity(InputCity); // ✅ Update City state correctly
+    if (city.trim() !== "") {
+      setSearchCity(city); // ✅ Trigger fetch for new city
+      setShowWeather(true);
+      
+    }
   };
 
   return (
@@ -49,27 +52,19 @@ const HeroSection = () => {
               Weather forecasts for thousands of locations around the world
             </h2>
             <div className="flex justify-left items-center space-x-4">
-              {/* ✅ Fixed onChange */}
               <input
                 type="text"
-                value={InputCity} // ✅ Controlled input
-                onChange={handleChange} // ✅ Pass function reference
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
                 placeholder="Search for a location..."
                 className="w-[30rem] h-12 p-4 border-black bg-white border-2 text-black rounded-full"
               />
-
-              {/* ✅ Fix button and Link structure */}
-              <Link to="/WeatherDashboard">
-                <button
-                  className="text-3xl h-12 w-12 rounded-full bg-white border-2 border-black hover:border-[#1e86cb]"
-                  onClick={handleSubmit}
-                >
-                  <i className="fa-duotone fa-solid fa-magnifying-glass text-black h-1 cursor-pointer hover:text-[#1e86cb] hover:transition-normal"></i>
-                </button>
-              </Link>
-
-              {/* ✅ Pass updated City prop to WeatherDashboard */}
-              {City && < WeatherDashboard city={City} />}
+              <button
+                className="text-3xl h-12 w-12 rounded-full bg-white border-2 border-black hover:border-[#1e86cb]"
+                onClick={handleSubmit}
+              >
+                <i className="fa-duotone fa-solid fa-magnifying-glass text-black h-1 cursor-pointer hover:text-[#1e86cb] hover:transition-normal"></i>
+              </button>
             </div>
           </motion.div>
         </div>
@@ -84,44 +79,53 @@ const HeroSection = () => {
           >
             <div className="h-[30rem] w-[32rem] rounded-2xl bg-[#032f96] flex justify-center items-center flex-col">
               {weather ? (
-                <>
-                  <div className="flex justify-center items-center space-x-4 p-4">
-                    <img src="/sun.png" alt="img" className="h-16 w-auto" />
-                    <p className="text-5xl">{weather.city}</p>
-                    <p className="text-5xl">{weather.temperature}°</p>
-                  </div>
-                  <div className="grid grid-cols-2 space-y-3.5 p-4 h-[20rem] w-[23rem] bg-[#032d8e] rounded-2xl">
-                    <div className="flex justify-center flex-col items-center">
-                      <img src="/sunrise.png" alt="sunrise" className="h-9" />
-                      <p>Sunrise</p>
-                      <p>{weather.sunriseTime}</p>
+                weather.error ? (
+                  <p className="text-2xl text-red-500">{weather.error}</p>
+                ) : (
+                  <>
+                    <div className="flex justify-center items-center space-x-4 p-4">
+                      <img src="/sun.png" alt="img" className="h-16 w-auto" />
+                      <p className="text-5xl">{weather.city}</p>
+                      <p className="text-5xl">{weather.temperature}°</p>
                     </div>
-                    <div className="flex justify-center flex-col items-center">
-                      <img src="/sunset.png" alt="sunset" className="h-9" />
-                      <p>Sunset</p>
-                      <p>{weather.sunsetTime} </p>
+                    <div className="grid grid-cols-2 space-y-3.5 p-4 h-[20rem] w-[23rem] bg-[#032d8e] rounded-2xl">
+                      <div className="flex justify-center flex-col items-center">
+                        <img src="/sunrise.png" alt="sunrise" className="h-9" />
+                        <p>Sunrise</p>
+                        <p>{weather.sunriseTime}</p>
+                      </div>
+                      <div className="flex justify-center flex-col items-center">
+                        <img src="/sunset.png" alt="sunset" className="h-9" />
+                        <p>Sunset</p>
+                        <p>{weather.sunsetTime} </p>
+                      </div>
+                      <div className="flex justify-center flex-col items-center">
+                        <img src="/humidity.png" alt="humidity" className="h-9" />
+                        <p>Humidity</p>
+                        <p>{weather.humidity}%</p>
+                      </div>
+                      <div className="flex justify-center flex-col items-center">
+                        <img src="/wind.png" alt="wind" className="h-7" />
+                        <p>Wind Speed</p>
+                        <p>{weather.windSpeed}km/h</p>
+                      </div>
                     </div>
-                    <div className="flex justify-center flex-col items-center">
-                      <img src="/humidity.png" alt="humidity" className="h-9" />
-                      <p>Humidity</p>
-                      <p>{weather.humidity}%</p>
-                    </div>
-                    <div className="flex justify-center flex-col items-center">
-                      <img src="/wind.png" alt="wind" className="h-7" />
-                      <p>Wind Speed</p>
-                      <p>{weather.windSpeed}km/h</p>
-                    </div>
-                  </div>
-                </>
+                  </>
+                )
               ) : (
-                <div>
-                  <l-ping size="45" speed="2" color=""></l-ping>
+                <div className="text-center w-full flex flex-col items-center justify-center">  
+                
+                  <img src={browseGIF} alt="loading" className="h-48 w-auto mix-blend-normal" />
+                   <p className="text-2xl text-white ">Browse you first City</p>
                 </div>
               )}
             </div>
           </motion.div>
         </div>
       </div>
+       
+      {/* ✅ Pass city as a prop to WeatherDashboard */}
+      {searchCity && showWeather && (<WeatherDashboard city={searchCity} onClose={()=>{setShowWeather(false)}}/>)}
     </>
   );
 };
