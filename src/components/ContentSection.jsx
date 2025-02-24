@@ -2,7 +2,22 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { fadeIn } from '../variants'
 import { Link, link } from 'react-scroll'
+import { useState } from 'react'
+import WeatherDashboard from '../pages/WeatherDashboard'
 const ContentSection = () => {
+    
+    const [SelectedCity, setSelectedCity] = useState(null)
+    const [ShowWeather, setShowWeather] = useState(false)
+    
+   const handleSubmit = (city) => {
+     
+       setSelectedCity(city);
+    setShowWeather(true)
+
+
+   }
+
+
   return (
     <>
     <div className='w-full h-screen grid grid-cols-2 bg-[#222222] text-white p-20'>
@@ -45,35 +60,36 @@ const ContentSection = () => {
             
         </div>
         <div className='grid grid-cols-4 gap-4 pt-4 space-y-6 mt-14'>
-         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/PK/shiny/64.png"/><p>Lahore</p><i className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
+         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/PK/shiny/64.png"/><p>Lahore</p><i onClick={()=>{handleSubmit("lahore")}} className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
 
 
-         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img  src="https://flagsapi.com/BD/shiny/64.png"/><p>Dhaka</p><i className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
+         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img  src="https://flagsapi.com/BD/shiny/64.png"/><p>Dhaka</p><i onClick={()=>{handleSubmit("dhaka")}}  className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
          
-         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/GB/shiny/64.png"/><p>London</p><i className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
+         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/GB/shiny/64.png"/><p>London</p><i onClick={()=>{handleSubmit("london")}} className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
 
 
 
-         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/TR/shiny/64.png"/><p>Istanbul</p><i className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
+         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/TR/shiny/64.png"/><p>Istanbul</p><i onClick={()=>{handleSubmit("istanbul")}} className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
 
-         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/US/shiny/64.png"/><p>Washington</p><i className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
+         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/US/shiny/64.png"/><p>Washington</p><i onClick={()=>{handleSubmit("washington")}} className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
 
-         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/RU/shiny/64.png"/><p>Moscow</p><i className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
+         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/RU/shiny/64.png"/><p>Moscow</p><i onClick={()=>{handleSubmit("moscow")}} className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
 
-         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/IN/shiny/64.png"/><p>Delhi</p><i className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
+         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/IN/shiny/64.png"/><p>Delhi</p><i onClick={()=>{handleSubmit("dehli")}} className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
 
-         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/CN/shiny/64.png"/><p>Shanghai</p><i className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
+         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/CN/shiny/64.png"/><p>Shanghai</p><i onClick={()=>{handleSubmit("shanghai")}} className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
         
-         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/RU/shiny/64.png"/><p>Moscow</p><i className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
+         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/RU/shiny/64.png"/><p>Saint Petersburg</p><i onClick={()=>{handleSubmit("Saint Petersburg")}} className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
 
-         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/SA/shiny/64.png"/><p>Riyadh</p><i className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
+         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/SA/shiny/64.png"/><p>Riyadh</p><i onClick={()=>{handleSubmit("riyadh")}} className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
 
-         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/OM/shiny/64.png"/><p>Muskat</p><i className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
+         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/OM/shiny/64.png"/><p>Muskat</p><i onClick={()=>{handleSubmit("Muskat")}} className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
           
-         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/ZA/shiny/64.png"/><p>Cape Town</p><i className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
+         <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/ZA/shiny/64.png"/><p>Cape Town</p><i onClick={()=>{handleSubmit("cape town")}} className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
        
         </div>
     </div>
+    { SelectedCity && ShowWeather && (<WeatherDashboard city={SelectedCity} onClose={()=>{setShowWeather(false)}}></WeatherDashboard>)}
     </>
   )
 }
