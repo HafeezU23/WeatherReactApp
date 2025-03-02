@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { Insights } from '../weather';
 import { ping } from 'ldrs';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -40,8 +40,53 @@ const WeatherDashboard = ({ city, onClose}) => {
 
   }
    
+  const videoURL = useMemo(() => {
+    if (!weather || !weather.main) return null;  // Ensure weather.main exists
+    const currentTime = new Date().getTime() / 1000;
+    if(currentTime < weather.sunsetTime && currentTime >= weather.sunriseTime) {
+    switch (weather.main.toLowerCase()) {
+      case "clear":
+        return "https://assets.mixkit.co/videos/1706/1706-720.mp4";
+      case "rain":
+        return "https://assets.mixkit.co/videos/2846/2846-720.mp4";
+      case "clouds":
+        return "https://assets.mixkit.co/videos/47180/47180-720.mp4";
+      case "snow":
+        return "https://assets.mixkit.co/videos/47703/47703-720.mp4";
+      case "thunderstorm":
+        return "https://assets.mixkit.co/videos/9681/9681-720.mp4";
+      default:
+        return "https://assets.mixkit.co/videos/1706/1706-720.mp4";
+    }
+  }
+    else{
+
+      switch (weather.main.toLowerCase()) {
+        case "clear":
+          return "https://assets.mixkit.co/videos/4124/4124-720.mp4";
+        case "rain":
+          return "https://assets.mixkit.co/videos/28097/28097-720.mp4";
+        case "clouds":
+          return "https://assets.mixkit.co/videos/30586/30586-720.mp4";
+        case "snow":
+          return "https://assets.mixkit.co/videos/27439/27439-720.mp4";
+
+        case "thunderstorm":
+           return "https://assets.mixkit.co/videos/25081/25081-720.mp4";
+        default:
+          return "https://assets.mixkit.co/videos/4081/4081-720.mp4";
+
+      }
+
+    
+  }
+  }, [weather]);
+  
+
+
+
   return (
-    <motion.div ref={modelRef} onClick={model} className="fixed inset-0 h-screen w-full  bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-40"
+    <motion.div ref={modelRef} onClick={model} className="fixed inset-0 h-[50rem] pb-6 lg:h-screen w-full  bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-40"
             
      initial={{opacity: 0}}
      animate={{opacity: 1}}
@@ -55,7 +100,7 @@ const WeatherDashboard = ({ city, onClose}) => {
       <AnimatePresence>
         { weather ? (
           <>
-      <motion.div className="bg-white bg-opacity-90 p-8 rounded-xl h-[35rem] shadow-lg w-[80rem] relative z-50 text-white"
+      <motion.div className="bg-white bg-opacity-90 pb-14 mt-12 lg:mt-10 p-8 rounded-xl h-[38rem] lg:h-[35rem] shadow-lg w-screen lg:w-[80rem] relative z-50 text-white pt-2  lg:pt-2"
                   
                   initial={{ scale: 0.8, opacity: 0 }} // Scale-in animation
                   animate={{ scale: 1, opacity: 1 }}
@@ -75,14 +120,14 @@ const WeatherDashboard = ({ city, onClose}) => {
          X
         </button>
         </div>
-        <div className='grid grid-cols-6 gap-4 h-auto w-auto my-3'>
+        <div className='grid grid-rows-6 lg:grid-cols-6 gap-4 h-auto w-auto my-3'>
         <div className='col-start-1 w-full mr-4 col-end-3'>
           
-        <h2 className="text-4xl font-bold mb-4">{city}</h2>
-        <p className='text-4xl mb-4'>  {weather?.description || "Loading..."}</p>
+        <h2 className="text-2xl lg:text-4xl font-bold mb-4">{city}</h2>
+        <p className=' text-2xl lg:text-4xl mb-4'>  {weather?.description || "Loading..."}</p>
           <div className='grid grid-cols-2 gap-4'>
             <div>
-          <div className='bg-transparent flex flex-col justify-center items-center w-[10rem] h-[10rem] p-2 rounded-lg backdrop-blur-xl text-white'>
+          <div className='bg-transparent flex flex-col justify-center items-center lg:w-[10rem] lg:h-[10rem] p-2 rounded-lg backdrop-blur-xl text-white'>
             <span className='flex items-center justify-center'> 
               <p  className='pb-2.5'>Wind</p>
               </span>
@@ -91,7 +136,7 @@ const WeatherDashboard = ({ city, onClose}) => {
                 <p>Direction: {weather?.wind_degree || "..."}°</p>
               </div>
           </div>
-          <div className='bg-transparent backdrop-blur-xl flex flex-col justify-center items-center w-[10rem] h-[10rem] p-2 rounded-lg mt-2'>
+          <div className='bg-transparent backdrop-blur-xl flex flex-col justify-center items-center lg:w-[10rem] lg:h-[10rem] p-2 rounded-lg mt-2'>
             <span className='flex items-center justify-center'> 
               <p  className='pb-2.5'>Visibility</p>
               </span>
@@ -102,7 +147,7 @@ const WeatherDashboard = ({ city, onClose}) => {
           </div>
           </div>
           <div>
-          <div className='bg-transparent backdrop-blur-xl flex flex-col justify-center items-center w-[10rem] h-[10rem] p-2 rounded-lg'>
+          <div className='bg-transparent backdrop-blur-xl flex flex-col justify-center items-center lg:w-[10rem] lg:h-[10rem] p-2 rounded-lg'>
             <span className='flex items-center justify-center'> 
               <p className='pb-2.5'>Pressure</p>
               </span>
@@ -112,7 +157,7 @@ const WeatherDashboard = ({ city, onClose}) => {
         
           </div>
 
-          <div className='bg-transparent backdrop-blur-xl flex flex-col justify-center items-center w-[10rem] h-[10rem] p-2 rounded-lg mt-2'>
+          <div className='bg-transparent backdrop-blur-xl flex flex-col justify-center items-center lg:w-[10rem] lg:h-[10rem] p-2 rounded-lg mt-2'>
             <span className='flex items-center justify-center'> 
               <p className='pb-2.5' >Humidity</p>
               </span>
@@ -127,8 +172,8 @@ const WeatherDashboard = ({ city, onClose}) => {
         </div>
 
         
-         <div className='col-span-4 col-start-3 col-end-6 w-full bg-red-50 -z-10'>
-              <video src="https://cdn.pixabay.com/video/2015/10/23/1154-143492926_medium.mp4 "
+         <div className='col-span-4 col-start-3 col-end-4 lg:col-end-6 w-full bg-red-50 -z-10'>
+              <video src={videoURL}
                muted
                autoPlay
                 loop
@@ -140,17 +185,17 @@ const WeatherDashboard = ({ city, onClose}) => {
          </div>
             
           <div className='w-full h-auto'>
-         <div className=' w-full text-white h-32  bg-transparent backdrop-blur-xl rounded-lg mt-2 flex flex-col justify-center items-center'>
-         <h2 className="text-4xl font-bold mb-4">{weather.temperature} °C</h2>
-         <p>Feels like {weather?.feels_like || "Loading..."} °C </p>
+         <div className=' w-full text-white lg:h-32  bg-transparent backdrop-blur-xl rounded-lg lg:mt-2 flex flex-row lg:flex-col justify-center items-center'>
+         <h2 className="text-xl p-2 w- lg:p-0 lg:text-4xl font-bold mb-4">{weather.temperature}°C</h2>
+         <p className='pl-6 w-40 lg:p-0'>Feels like {weather?.feels_like || "Loading..."}°C </p>
          </div>
 
-           <div className=' w-full text-white h-32  bg-transparent backdrop-blur-xl rounded-lg mt-2 flex flex-col justify-center items-center'>
+           <div className=' w-full text-white lg:h-32  bg-transparent backdrop-blur-xl rounded-lg mt-2 flex flex-row lg:flex-col justify-between lg:justify-center items-center p-2 lg:p-0'>
                      <img src="./sunrise.png" alt="sunrise" />
                      <p>{weather?.sunriseTime || "..."}</p>
            </div>
 
-           <div className=' w-full text-white h-32  bg-transparent backdrop-blur-xl rounded-lg mt-2 flex flex-col justify-center items-center'>
+           <div className=' w-full text-white lg:h-32  bg-transparent backdrop-blur-xl rounded-lg mt-2 flex flex-row lg:flex-col justify-between lg:justify-center items-center p-2'>
                      <img src="./sunset.png" alt="sunrise" />
                      <p>{weather?.sunsetTime || "..."}</p>
            </div>
@@ -162,7 +207,9 @@ const WeatherDashboard = ({ city, onClose}) => {
          
       </motion.div>
       </>) : (
-             <l-ping size="45" speed="2" color=""></l-ping>
+        <>
+             { videoURL &&  (<l-ping size="45" speed="2" color=""></l-ping>)}
+             </>
       )
 }
       </AnimatePresence>
@@ -174,3 +221,4 @@ const WeatherDashboard = ({ city, onClose}) => {
 };
 
 export default WeatherDashboard;
+

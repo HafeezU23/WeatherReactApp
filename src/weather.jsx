@@ -26,7 +26,6 @@ export const Insights = async (city) => {
             wind_degree: data.wind.deg,
             visi: data.visibility,
             pressure: data.main.pressure,
-            humidity: data.main.humidity,
             feels_like: data.main.feels_like,
         };
     } catch (error) {

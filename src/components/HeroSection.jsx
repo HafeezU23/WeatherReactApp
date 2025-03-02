@@ -4,13 +4,11 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../variants";
 import { Insights } from "../weather";
 import { ping } from "ldrs";
-import { useNavigate } from "react-router-dom";
 import WeatherDashboard from "../pages/WeatherDashboard";
 
 
 const HeroSection = () => {
   ping.register();
-  const navigate = useNavigate();
   const [weather, setWeather] = useState();
   const [city, setCity] = useState(""); // ✅ Use controlled input
   const [searchCity, setSearchCity] = useState(""); // ✅ Separate state for search
@@ -26,6 +24,19 @@ const HeroSection = () => {
     fetchData();
   }, [searchCity]); // ✅ Run effect when searchCity changes
 
+  // useEffect(() => {
+    
+  // if(showWeather){
+  //   document.body.style.overflow = "hidden";
+    
+  // }
+  // else {
+  //   document.body.style.overflow = "auto"; // Enable scrolling
+  // }
+    
+  // }, [showWeather])
+  
+
   const handleSubmit = () => {
     if (city.trim() !== "") {
       setSearchCity(city); // ✅ Trigger fetch for new city
@@ -37,10 +48,10 @@ const HeroSection = () => {
   return (
     <>
       <div
-        className="w-full h-screen grid grid-cols-2 bg-[url('/homepage.jpg')] bg-center bg-cover bg-fixed"
+        className="w-full h-auto lg:h-screen grid grid-rows-2 lg:grid lg:grid-cols-2 bg-[url('/homepage.jpg')] bg-center bg-cover bg-fixed"
         id="weatherSearch"
       >
-        <div className="w-full col-span-1 h-full p-20 flex align-middle justify-center flex-col">
+        <div className="w-screen lg:w-full col-span-1  lg:h-screen p-10 lg:p-20 flex align-middle justify-center flex-col">
           <motion.div
             variants={fadeIn("right", 1)}
             initial="hidden"
@@ -48,7 +59,7 @@ const HeroSection = () => {
             viewport={{ once: true, amount: 0.5 }}
             className="font-bold text-white"
           >
-            <h2 className="pb-8 text-5xl text-black leading-relaxed">
+            <h2 className="pb-8 text-2xl lg:text-5xl text-black leading-relaxed">
               Weather forecasts for thousands of locations around the world
             </h2>
             <div className="flex justify-left items-center space-x-4">
@@ -57,19 +68,19 @@ const HeroSection = () => {
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="Search for a location..."
-                className="w-[30rem] h-12 p-4 border-black bg-white border-2 text-black rounded-full"
+                className="w-full lg:w-[30rem] h-12 p-4 border-black bg-white border-2 text-black rounded-full"
               />
               <button
-                className="text-3xl h-12 w-12 rounded-full bg-white border-2 border-black hover:border-[#1e86cb]"
+                className="text-lg lg:text-3xl h-12 w-12 rounded-full bg-white border-2 border-black hover:border-[#1e86cb]"
                 onClick={handleSubmit}
               >
-                <i className="fa-duotone fa-solid fa-magnifying-glass text-black h-1 cursor-pointer hover:text-[#1e86cb] hover:transition-normal"></i>
+                <i className="fa-duotone fa-solid fa-magnifying-glass text-black h-1/2 lg:h-1 cursor-pointer hover:text-[#1e86cb] hover:transition-normal"></i>
               </button>
             </div>
           </motion.div>
         </div>
 
-        <div className="w-full h-full p-20 flex align-middle justify-center flex-col">
+        <div className="w-screen lg:w-full lg:h-screen p-10 lg:p-20 flex align-middle justify-center flex-col ">
           <motion.div
             variants={fadeIn("left", 1)}
             initial="hidden"
@@ -77,7 +88,7 @@ const HeroSection = () => {
             viewport={{ once: true, amount: 0.5 }}
             className="font-bold text-white"
           >
-            <div className="h-[30rem] w-[32rem] rounded-2xl bg-[#032f96] flex justify-center items-center flex-col">
+            <div className="h-[25rem] w-72 lg:h-[30rem] lg:w-[32rem] rounded-2xl bg-[#032f96] flex justify-center items-center flex-col mb-16 lg:mb-0">
               {weather ? (
                 weather.error ? (
                   <p className="text-2xl text-red-500">{weather.error}</p>
@@ -113,10 +124,10 @@ const HeroSection = () => {
                   </>
                 )
               ) : (
-                <div className="text-center w-full flex flex-col items-center justify-center">  
+                <div className="text-center w-screen lg:w-full flex flex-col items-center justify-center">  
                 
-                  <img src={browseGIF} alt="loading" className="h-48 w-auto mix-blend-normal" />
-                   <p className="text-2xl text-white ">Browse you first City</p>
+                  <img src={browseGIF} alt="loading" className="h-28 lg:h-48 w-auto mix-blend-normal" />
+                   <p className="text-lg lg:text-2xl text-white ">Browse you first City</p>
                 </div>
               )}
             </div>

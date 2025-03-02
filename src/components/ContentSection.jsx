@@ -20,7 +20,7 @@ const ContentSection = () => {
 
   return (
     <>
-    <div className='w-full h-screen grid grid-cols-2 bg-[#222222] text-white p-20'>
+    <div className='w-full h-screen lg:h-[60vh] grid grid-rows-2 lg:grid-cols-2 bg-[#222222] text-white p-12 lg:px-20 lg:py-32'>
         <motion.div 
 
          variants={fadeIn('right', 0)}
@@ -29,7 +29,7 @@ const ContentSection = () => {
          viewport={{ once: true, amount: 0.5 }}
 
         
-        className='flex justify-center items-center flex-col text-2xl'>
+        className='flex justify-center items-center flex-col text-lg lg:text-2xl'>
             <p className='pb-6'>
             Source of any weather forecasts and updates.
             Stay updated of any weather changes with AirView. 
@@ -49,17 +49,17 @@ const ContentSection = () => {
         
         
         className='flex justify-center items-center'>
-            <img src="/frame.png" alt="frame" className='h-[25rem]'/>
+            <img src="/frame.png" alt="frame" className='h-[20rem] lg:h-[25rem]'/>
         </motion.div>
     </div>
-    <div className='w-full h-screen bg-[#222222] text-white p-20'>
-        <h2 className='text-4xl'>World Weather Forecast</h2>
+    <div className='w-full  h-auto lg:h-screen bg-[#222222] text-white p-20'>
+        <h2 className='text-lg lg:text-4xl'>World Weather Forecast</h2>
         <div className='flex justify-between items-center h-9 w-full pt-3'>
-            <p className='text-sm'>please select a city</p>
+            <p className='text-sm hidden lg:block'>please select a city</p>
             <Link to='weatherSearch' smooth={true} duration={2000}><p className='text-sm hover:cursor-pointer hover:text-[#57afbe]'>MORE LOCATIONS</p></Link>
             
         </div>
-        <div className='grid grid-cols-4 gap-4 pt-4 space-y-6 mt-14'>
+        <div className='grid grid-row-12 lg:grid-cols-4 gap-4 pt-4 space-y-6 mt-14'>
          <div className='flex items-center justify-between h-12 w-full rounded-lg border-2 border-white py-3 px-1'><img src="https://flagsapi.com/PK/shiny/64.png"/><p>Lahore</p><i onClick={()=>{handleSubmit("lahore")}} className="fa-solid fa-arrow-up-right-from-square text-xl hover:cursor-pointer hover:text-[#57afbe] h-5"></i></div>
 
 
