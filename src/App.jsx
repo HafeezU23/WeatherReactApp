@@ -7,7 +7,6 @@ import ContentSection from './components/ContentSection'
 import Footer from './components/Footer'
 import { Link } from 'react-scroll'
 import { FaChevronUp } from "react-icons/fa";
-import { FaArrowRightArrowLeft } from "react-icons/fa6";
 import WeatherDashboard from './pages/WeatherDashboard'
 import { Route, Routes } from 'react-router-dom'
 
