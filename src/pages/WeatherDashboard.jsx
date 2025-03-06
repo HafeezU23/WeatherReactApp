@@ -42,7 +42,7 @@ const WeatherDashboard = ({ city, onClose}) => {
    
   const videoURL = useMemo(() => {
     if (!weather || !weather.main) return null;  // Ensure weather.main exists
-    const currentTime = new Date().getTime() / 1000;
+    const currentTime = Math.floor(new Date().getTime() / 1000);
     if(currentTime < weather.sunsetTime && currentTime >= weather.sunriseTime) {
     switch (weather.main.toLowerCase()) {
       case "clear":
@@ -100,7 +100,7 @@ const WeatherDashboard = ({ city, onClose}) => {
       <AnimatePresence>
         { weather ? (
           <>
-      <motion.div className="bg-white bg-opacity-90 pb-14 mt-12 lg:mt-10 p-8 rounded-xl h-[38rem] lg:h-[35rem] shadow-lg w-screen lg:w-[80rem] relative z-50 text-white pt-2  lg:pt-2 z-index: 9999"
+      <motion.div className="bg-white bg-opacity-90 pb-14 mt-12 lg:mt-10 p-8 rounded-xl h-[38rem] lg:h-[35rem] shadow-lg w-screen lg:w-[80rem] relative z-50 text-white pt-2  lg:pt-2 z-index: 9999 overflow-hidden"
                   
                   initial={{ scale: 0.8, opacity: 0 }} // Scale-in animation
                   animate={{ scale: 1, opacity: 1 }}
