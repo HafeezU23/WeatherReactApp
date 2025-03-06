@@ -40,27 +40,65 @@ const WeatherDashboard = ({ city, onClose}) => {
 
   }
    
-  const videoURL = useMemo(() => {
-    if (!weather || !weather.main) return null;  // Ensure weather.main exists
-    const currentTime = Math.floor(new Date().getTime() / 1000);
-    if(currentTime < weather.sunsetTime && currentTime >= weather.sunriseTime) {
-    switch (weather.main.toLowerCase()) {
-      case "clear":
-        return "https://assets.mixkit.co/videos/1706/1706-720.mp4";
-      case "rain":
-        return "https://assets.mixkit.co/videos/2846/2846-720.mp4";
-      case "clouds":
-        return "https://assets.mixkit.co/videos/47180/47180-720.mp4";
-      case "snow":
-        return "https://assets.mixkit.co/videos/47703/47703-720.mp4";
-      case "thunderstorm":
-        return "https://assets.mixkit.co/videos/9681/9681-720.mp4";
-      default:
-        return "https://assets.mixkit.co/videos/1706/1706-720.mp4";
-    }
-  }
-    else{
+ 
 
+  const videoURL = useMemo(() => {
+    if (!weather || !weather.main || !weather.sunriseTime || !weather.sunsetTime) return null; 
+  
+    // Get current local time (24-hour format)
+    const currentTime = new Date();
+    const currentHours = currentTime.getHours();
+    const currentMinutes = currentTime.getMinutes();
+  
+    // Function to convert "h:mm:ss AM/PM" to 24-hour format
+    const convertTo24Hour = (timeString) => {
+      if (!timeString) return null;
+  
+      const [time, period] = timeString.split(" ");
+      let [hours, minutes] = time.split(":").map(Number);
+  
+      if (period === "PM" && hours !== 12) {
+        hours += 12;
+      } else if (period === "AM" && hours === 12) {
+        hours = 0;
+      }
+  
+      return { hours, minutes };
+    };
+  
+    const sunrise = convertTo24Hour(weather.sunriseTime);
+    const sunset = convertTo24Hour(weather.sunsetTime);
+  
+    if (!sunrise || !sunset) return null; // Prevent errors if conversion fails
+  
+    // Check if current time is between sunrise and sunset
+    const isAfterSunrise =
+      currentHours > sunrise.hours ||
+      (currentHours === sunrise.hours && currentMinutes >= sunrise.minutes);
+  
+    const isBeforeSunset =
+      currentHours < sunset.hours ||
+      (currentHours === sunset.hours && currentMinutes < sunset.minutes);
+  
+    const isDaytime = isAfterSunrise && isBeforeSunset;
+  
+   
+    if (isDaytime) {
+      switch (weather.main.toLowerCase()) {
+        case "clear":
+          return "https://assets.mixkit.co/videos/1706/1706-720.mp4";
+        case "rain":
+          return "https://assets.mixkit.co/videos/2846/2846-720.mp4";
+        case "clouds":
+          return "https://assets.mixkit.co/videos/47180/47180-720.mp4";
+        case "snow":
+          return "https://assets.mixkit.co/videos/47703/47703-720.mp4";
+        case "thunderstorm":
+          return "https://assets.mixkit.co/videos/9681/9681-720.mp4";
+        default:
+          return "https://assets.mixkit.co/videos/1706/1706-720.mp4";
+      }
+    } else {
       switch (weather.main.toLowerCase()) {
         case "clear":
           return "https://assets.mixkit.co/videos/4124/4124-720.mp4";
@@ -70,16 +108,12 @@ const WeatherDashboard = ({ city, onClose}) => {
           return "https://assets.mixkit.co/videos/30586/30586-720.mp4";
         case "snow":
           return "https://assets.mixkit.co/videos/27439/27439-720.mp4";
-
         case "thunderstorm":
-           return "https://assets.mixkit.co/videos/25081/25081-720.mp4";
+          return "https://assets.mixkit.co/videos/25081/25081-720.mp4";
         default:
           return "https://assets.mixkit.co/videos/4081/4081-720.mp4";
-
       }
-
-    
-  }
+    }
   }, [weather]);
   
 
