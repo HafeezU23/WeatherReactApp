@@ -49,7 +49,7 @@ const HeroSection = () => {
     <>
       <div
         className="w-full h-auto lg:h-screen grid grid-rows-2 lg:grid lg:grid-cols-2 bg-[url('/homepage.jpg')] bg-center bg-cover bg-fixed"
-        id="weatherSearch "
+        id="weatherSearch"
       >
         <div className="w-screen lg:w-full col-span-1  lg:h-screen p-10 lg:p-20 flex align-middle justify-center flex-col">
           <motion.div
