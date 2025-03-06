@@ -120,7 +120,7 @@ const WeatherDashboard = ({ city, onClose}) => {
 
 
   return (
-    <motion.div ref={modelRef} onClick={model} className="fixed inset-0 h-[50rem] pb-6 lg:h-screen w-full  bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-40"
+    <motion.div ref={modelRef} onClick={model} className="fixed inset-0 h-[50rem]  pb-6 lg:h-screen w-full  bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-40 overflow-auto"
             
      initial={{opacity: 0}}
      animate={{opacity: 1}}
@@ -134,7 +134,7 @@ const WeatherDashboard = ({ city, onClose}) => {
       <AnimatePresence>
         { weather ? (
           <>
-      <motion.div className="bg-white bg-opacity-90 pb-14 mt-12 lg:mt-10 p-8 rounded-xl h-[38rem] lg:h-[35rem] shadow-lg w-screen lg:w-[80rem] fixed z-50 text-white pt-2  lg:pt-2 z-index: 9999 overflow-hidden"
+      <motion.div className="bg-white bg-opacity-90 pb-14 lg:mt-10 p-8 rounded-xl h-[38rem] lg:h-[35rem] shadow-lg w-screen lg:w-[80rem] fixed z-50 text-white pt-2  lg:pt-2 z-index: 9999 overflow-hidden"
                   
                   initial={{ scale: 0.8, opacity: 0 }} // Scale-in animation
                   animate={{ scale: 1, opacity: 1 }}
