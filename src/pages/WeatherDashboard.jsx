@@ -134,7 +134,7 @@ const WeatherDashboard = ({ city, onClose}) => {
       <AnimatePresence>
         { weather ? (
           <>
-      <motion.div className="bg-white bg-opacity-90 pb-14 mt-12 lg:mt-10 p-8 rounded-xl h-[38rem] lg:h-[35rem] shadow-lg w-screen lg:w-[80rem] relative z-50 text-white pt-2  lg:pt-2 z-index: 9999 overflow-hidden"
+      <motion.div className="bg-white bg-opacity-90 pb-14 mt-12 lg:mt-10 p-8 rounded-xl h-[38rem] lg:h-[35rem] shadow-lg w-screen lg:w-[80rem] fixed z-50 text-white pt-2  lg:pt-2 z-index: 9999 overflow-hidden"
                   
                   initial={{ scale: 0.8, opacity: 0 }} // Scale-in animation
                   animate={{ scale: 1, opacity: 1 }}
@@ -149,7 +149,7 @@ const WeatherDashboard = ({ city, onClose}) => {
           <h1>AirView ForeCast</h1>
       <button
           onClick={onClose}  onTouchStart={onClose}
-          className=" bg-gray-200 text-red-500 px-4 hover:bg-gray-300 py-2 rounded-lg"
+          className=" bg-gray-200 text-red-500 px-4 hover:bg-gray-300 py-2 rounded-lg hover:cursor-pointer"
         >
          X
         </button>

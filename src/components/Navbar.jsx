@@ -6,7 +6,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="relative h-16 bg-black flex justify-between items-center p-4  top-0 w-full z-50">
+      <div className="relative h-16 bg-black flex justify-between items-center p-4  top-0 w-full z-50 overflow-hidden">
         {/* Logo */}
         <div className="text-white">
           <p className="text-3xl cursor-pointer hover:text-[#57afbe]">
@@ -43,7 +43,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-         <div className="lg:hidden block z-10"><FaArrowRightArrowLeft className="absolute rounded-full text-gray-700 top-18 right-4" size={22} onClick={()=>{setIsOpen(!isOpen)}}/></div>
+         <div className="lg:hidden block"><FaArrowRightArrowLeft className="absolute rounded-full text-gray-700 top-18 right-4" size={22} onClick={()=>{setIsOpen(!isOpen)}}/></div>
 
          <div className={`absolute lg:hidden top-16 left-0 w-full bg-white flex flex-col items-center gap-6 font-semibold text-lg transform transition-transform z-index: 9999 ${isOpen == true ? "opacity-100" : "opacity-0"}`}
        

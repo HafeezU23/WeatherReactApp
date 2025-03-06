@@ -49,7 +49,7 @@ const HeroSection = () => {
     <>
       <div
         className="w-full h-auto lg:h-screen grid grid-rows-2 lg:grid lg:grid-cols-2 bg-[url('/homepage.jpg')] bg-center bg-cover bg-fixed"
-        id="weatherSearch"
+        id="weatherSearch "
       >
         <div className="w-screen lg:w-full col-span-1  lg:h-screen p-10 lg:p-20 flex align-middle justify-center flex-col">
           <motion.div
@@ -88,7 +88,7 @@ const HeroSection = () => {
             viewport={{ once: true, amount: 0.5 }}
             className="font-bold text-white"
           >
-            <div className="h-[25rem] w-72 lg:h-[30rem] lg:w-[32rem] rounded-2xl bg-[#032f96] flex justify-center items-center flex-col mb-16 lg:mb-0">
+            <div className="h-[25rem] w-72 lg:h-[30rem] lg:w-[32rem] rounded-2xl bg-[#032f96] md:flex justify-center items-center flex-col mb-16 lg:mb-0 hidden">
               {weather ? (
                 weather.error ? (
                   <p className="text-2xl text-red-500">{weather.error}</p>
