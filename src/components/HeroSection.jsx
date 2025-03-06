@@ -80,13 +80,13 @@ const HeroSection = () => {
           </motion.div>
         </div>
 
-        <div className="w-screen lg:w-full lg:h-screen p-10 lg:p-20 hidden md:flex md:align-middle md:justify-center md:flex-col ">
+        <div className="w-screen lg:w-full lg:h-screen p-10 lg:p-20 flex align-middle justify-center flex-col ">
           <motion.div
             variants={fadeIn("left", 1)}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.5 }}
-            className="font-bold text-white hidden md:block"
+            className="font-bold text-white"
           >
             <div className="h-[25rem] w-72 lg:h-[30rem] lg:w-[32rem] rounded-2xl bg-[#032f96] flex justify-center items-center flex-col mb-16 lg:mb-0">
               {weather ? (
